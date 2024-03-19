@@ -1,0 +1,67 @@
+# 0.5: Part 1
+
+```mermaid
+sequenceDiagram
+    Title: 0.5: Diagrama de aplicación de una sola página
+
+    participant Usuario
+    participant Navegador
+    participant Servidor
+    
+
+    activate Usuario
+    Usuario->>Navegador: GET [https://studies.cs.helsinki.fi/exampleapp/spa]
+    
+    deactivate Usuario
+    activate Navegador
+    Navegador->>Servidor: GET [https://studies.cs.helsinki.fi/exampleapp/spa]
+    
+    deactivate Navegador
+    activate Servidor
+    Servidor->>Navegador: POST [HTML document]
+    note over Navegador: You get the HTML code that loads first
+    deactivate Servidor
+
+    activate Navegador
+    Navegador->>Servidor: GET [https://studies.cs.helsinki.fi/exampleapp/main.css]
+    deactivate Navegador
+    activate Servidor
+    Servidor->>Navegador: POST [main.css]
+    note over Navegador: Likewise with the other files that are obtained through the HTML link tags
+    deactivate Servidor
+
+    activate Navegador
+    Navegador->>Servidor: GET [https://studies.cs.helsinki.fi/exampleapp/spa.js]
+    note over Navegador: The Browser starts by asking the js code to be executed on the server
+    deactivate Navegador
+    activate Servidor
+    Servidor->>Navegador: POST [spa.js]
+    deactivate Servidor
+
+    activate Navegador
+    Navegador->>Servidor: GET [https://studies.cs.helsinki.fi/exampleapp/data.json]
+    deactivate Navegador
+    activate Servidor
+    Servidor->>Navegador: POST [{content: "prueba", date: "2024-03-18T23:15:24.309Z"}, {content: "probame esta lctmr", date: "2024-03-18T23:20:34.831Z"}...]
+    deactivate Servidor
+    
+    activate Navegador
+    Navegador->>Usuario: POST [Page]
+    deactivate Navegador
+    activate Usuario
+    Usuario->>Navegador: [Button Save]
+    deactivate Usuario
+
+    activate Navegador
+    Navegador->>Servidor: POST [https://studies.cs.helsinki.fi/exampleapp/new_note_spa]
+  note over Navegador: El estado de la peticion aparece con 201 que quiere decir created, es decir que se creo un elemento y este solo se añade con el siguente vista previa [{message: "note created"} message : "note created"]
+    deactivate Navegador
+    
+    
+
+
+    
+    
+
+
+```
